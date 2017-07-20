@@ -19,103 +19,128 @@ public class movementHand : MonoBehaviour {
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.W)) {
-			Vector3 x = new Vector3 (-4.5f, transform.position.y, 0f);
-			transform.position = x;
-		}
-		if (Input.GetKeyDown (KeyCode.E)) {
-			Vector3 x = new Vector3 (-4.0f, transform.position.y, 0f);
-			transform.position = x;
-		}
-		if (Input.GetKeyDown (KeyCode.R)) {
 			Vector3 x = new Vector3 (-3.5f, transform.position.y, 0f);
 			transform.position = x;
 		}
-		if (Input.GetKeyDown (KeyCode.T)) {
-			Vector3 x = new Vector3 (-3.0f, transform.position.y, 0f);
+		if (Input.GetKeyDown (KeyCode.E)) {
+			Vector3 x = new Vector3 (-2f, transform.position.y, 0f);
 			transform.position = x;
 		}
-		if (Input.GetKeyDown (KeyCode.Y)) {
-			Vector3 x = new Vector3 (-2.5f, transform.position.y, 0f);
-			transform.position = x;
-		}
-		if (Input.GetKeyDown (KeyCode.U)) {
-			Vector3 x = new Vector3 (-2.0f, transform.position.y, 0f);
-			transform.position = x;
-		}
-		if (Input.GetKeyDown (KeyCode.I)) {
-			Vector3 x = new Vector3 (-1.5f, transform.position.y, 0f);
-			transform.position = x;
-		}
-		if (Input.GetKeyDown (KeyCode.O)) {
-			Vector3 x = new Vector3 (-1.0f, transform.position.y, 0f);
-			transform.position = x;
-		}
-		if (Input.GetKeyDown (KeyCode.P)) {
+		if (Input.GetKeyDown (KeyCode.R)) {
 			Vector3 x = new Vector3 (-0.5f, transform.position.y, 0f);
 			transform.position = x;
 		}
+		if (Input.GetKeyDown (KeyCode.T)) {
+			Vector3 x = new Vector3 (1f, transform.position.y, 0f);
+			transform.position = x;
+		}
+		if (Input.GetKeyDown (KeyCode.Y)) {
+			Vector3 x = new Vector3 (2.5f, transform.position.y, 0f);
+			transform.position = x;
+		}
+		if (Input.GetKeyDown (KeyCode.U)) {
+			Vector3 x = new Vector3 (4f, transform.position.y, 0f);
+			transform.position = x;
+		}
+		if (Input.GetKeyDown (KeyCode.I)) {
+			Vector3 x = new Vector3 (5.5f, transform.position.y, 0f);
+			transform.position = x;
+		}
+		if (Input.GetKeyDown (KeyCode.O)) {
+			Vector3 x = new Vector3 (7f, transform.position.y, 0f);
+			transform.position = x;
+		}
+		if (Input.GetKeyDown (KeyCode.P)) {
+			Vector3 x = new Vector3 (8.5f, transform.position.y, 0f);
+			transform.position = x;
+		}
+
+
+
 		if (Input.GetKeyDown (KeyCode.A)) {
-			Vector3 x = new Vector3 (-5f, transform.position.y, -1f);
+			Vector3 x = new Vector3 (-5f, transform.position.y, -1.5f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.S)) {
-			Vector3 x = new Vector3 (-4.5f, transform.position.y, -1f);
+			Vector3 x = new Vector3 (-3.5f, transform.position.y, -1.5f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.D)) {
-			Vector3 x = new Vector3 (-4.0f, transform.position.y, -1f);
+			Vector3 x = new Vector3 (-2f, transform.position.y, -1.5f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.F)) {
-			Vector3 x = new Vector3 (-3.5f, transform.position.y, -1f);
+			Vector3 x = new Vector3 (-0.5f, transform.position.y, -1.5f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.G)) {
-			Vector3 x = new Vector3 (-3.0f, transform.position.y, -1f);
+			Vector3 x = new Vector3 (1f, transform.position.y, -1.5f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.H)) {
-			Vector3 x = new Vector3 (-2.5f, transform.position.y, -1f);
+			Vector3 x = new Vector3 (2.5f, transform.position.y, -1.5f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.J)) {
-			Vector3 x = new Vector3 (-2.0f, transform.position.y, -1f);
+			Vector3 x = new Vector3 (4.0f, transform.position.y, -1.5f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.K)) {
-			Vector3 x = new Vector3 (-1.5f, transform.position.y, -1f);
+			Vector3 x = new Vector3 (5.5f, transform.position.y, -1.5f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.L)) {
-			Vector3 x = new Vector3 (-1.0f, transform.position.y, -1f);
+			Vector3 x = new Vector3 (7.0f, transform.position.y, -1.5f);
 			transform.position = x;
 		}
+		if (Input.GetKeyDown (KeyCode.Colon)) {
+			Vector3 x = new Vector3 (8.5f, transform.position.y, -1.5f);
+			transform.position = x;
+		}
+
+
+
+
+
+
 		if (Input.GetKeyDown (KeyCode.Z)) {
-			Vector3 x = new Vector3 (-5f, transform.position.y, -2f);
+			Vector3 x = new Vector3 (-5f, transform.position.y, -3f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.X)) {
-			Vector3 x = new Vector3 (-4.5f, transform.position.y, -2f);
+			Vector3 x = new Vector3 (-3.5f, transform.position.y, -3f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.C)) {
-			Vector3 x = new Vector3 (-4.0f, transform.position.y, -2f);
+			Vector3 x = new Vector3 (-2.0f, transform.position.y, -3f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.V)) {
-			Vector3 x = new Vector3 (-3.5f, transform.position.y, -2f);
+			Vector3 x = new Vector3 (-0.5f, transform.position.y, -3f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.B)) {
-			Vector3 x = new Vector3 (-3.0f, transform.position.y, -2f);
+			Vector3 x = new Vector3 (1f, transform.position.y, -3f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.N)) {
-			Vector3 x = new Vector3 (-2.5f, transform.position.y, -2f);
+			Vector3 x = new Vector3 (2.5f, transform.position.y, -3f);
 			transform.position = x;
 		}
 		if (Input.GetKeyDown (KeyCode.M)) {
-			Vector3 x = new Vector3 (-2.0f, transform.position.y, -2f);
+			Vector3 x = new Vector3 (4f, transform.position.y, -3f);
+			transform.position = x;
+		}
+		if (Input.GetKeyDown (KeyCode.Comma)) {
+			Vector3 x = new Vector3 (5.5f, transform.position.y, -3f);
+			transform.position = x;
+		}
+		if (Input.GetKeyDown (KeyCode.Period)) {
+			Vector3 x = new Vector3 (7.0f, transform.position.y, -3f);
+			transform.position = x;
+		}
+		if (Input.GetKeyDown (KeyCode.Slash)) {
+			Vector3 x = new Vector3 (8.5f, transform.position.y, -3f);
 			transform.position = x;
 		}
 
