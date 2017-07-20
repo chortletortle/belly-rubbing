@@ -6,10 +6,11 @@ public class movementHand : MonoBehaviour {
 	float preserveY;
 	bool flip = false;
 	bool space = false;
+
 	// Use this for initialization
 	void Start () {
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Q)) {
