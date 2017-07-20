@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class movementHand : MonoBehaviour {
 	public GameObject spot;
+	public Image orgasmMeter;
 
 	float preserveY;
 	bool flip = false;
 	bool space = false;
+	public float waitTime = 30.0f;
+	public float rate = 3.0f;
 
 	char[][] keyboard;
 	float[][] curCoordsX;
@@ -35,6 +39,12 @@ public class movementHand : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		orgasmMeter.fillAmount -= rate / waitTime * Time.deltaTime;
+		if (orgasmMeter.fillAmount == 0f) {
+		}
+
+
 		int correct = 0;
 		for (int i = 0; i < lastTenChars.Count; i++) {
 			if (randSel [0].Equals(lastTenChars [i]) ||
@@ -253,11 +263,7 @@ public class movementHand : MonoBehaviour {
 				}
 			}
 		}
-
-
-
-
-
+			
 
 		if (Input.GetKeyDown (KeyCode.Z)) {
 			Vector3 x = new Vector3 (-5f, transform.position.y, -3f);
@@ -386,7 +392,13 @@ public class movementHand : MonoBehaviour {
 			flip = true;
 			transform.Rotate (new Vector3 (-90f, 0f, 0f));
 		}
-		if (Input.GetKeyUp (KeyCode.UpArrow) && !space) {
+
+		if (Input.GetKeyUp (KeyCode.UpArrow) && !space && flip) {
+			flip = false;
+			transform.Rotate (new Vector3 (90f, 0f, 0f));
+		}
+
+		if (Input.GetKeyUp (KeyCode.UpArrow) && space && flip) {
 			flip = false;
 			transform.Rotate (new Vector3 (90f, 0f, 0f));
 		}
