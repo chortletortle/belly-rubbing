@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class movementHand : MonoBehaviour {
-	Rigidbody arby;
 	float preserveY;
 	bool flip = false;
 	bool space = false;
 	// Use this for initialization
 	void Start () {
-		arby = GetComponent<Rigidbody> ();
 	}
 	
 	// Update is called once per frame
