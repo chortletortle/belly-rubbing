@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 01f345bf3f4d842a8b814fd20cb88387
+timeCreated: 1500582135
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: pixelpoiiz
+  fontNames:
+  - pixelpoiiz
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

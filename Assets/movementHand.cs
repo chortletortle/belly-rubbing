@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class movementHand : MonoBehaviour {
 	public GameObject spot;
 	public Image orgasmMeter;
+	public Text titles;
 
 	float preserveY;
 	bool flip = false;
 	bool space = false;
-	public float waitTime = 30.0f;
-	public float rate = 3.0f;
+	public float waitTime = 120.0f;
+	public float rate = .25f;
 
 	char[][] keyboard;
 	float[][] curCoordsX;
@@ -25,15 +26,6 @@ public class movementHand : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		generateRandom();
-		foreach (char x in randSel){
-			Debug.Log(x);
-		}
-		foreach (float x in randX){
-			Debug.Log(x);
-		}
-		foreach (float x in randZ){
-			Debug.Log(x);
-		}
 
 	}
 
@@ -42,6 +34,24 @@ public class movementHand : MonoBehaviour {
 
 		orgasmMeter.fillAmount -= rate / waitTime * Time.deltaTime;
 		if (orgasmMeter.fillAmount == 0f) {
+			titles.enabled = true;
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				orgasmMeter.fillAmount = 0.30f;
+				generateRandom ();
+				titles.enabled = false;
+			}
+
+		} else if (orgasmMeter.fillAmount >= .97f) {
+			//win the game!!!
+			//still restart
+			titles.enabled = true;
+			titles.text = "time for cuddles, unless you're ready for round 2? ;-p";
+			orgasmMeter.fillAmount = 1.0f;
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				orgasmMeter.fillAmount = 0.30f;
+				generateRandom ();
+				titles.enabled = false;
+			}
 		}
 
 
@@ -56,6 +66,7 @@ public class movementHand : MonoBehaviour {
 
 		if (correct == 10) {
 			generateRandom();
+			orgasmMeter.fillAmount += 0.07f;
 		}
 
 
@@ -436,7 +447,6 @@ public class movementHand : MonoBehaviour {
 			}
 		}
 		int ranRow = (int)Mathf.Round(Random.Range (0, keyboard.Length - 1));
-		Debug.Log(ranRow);
 		int ranCol = (int)Mathf.Round(Random.Range (0, keyboard [0].Length - 2));
 		randSel = new char[] {keyboard [ranRow] [ranCol], keyboard [ranRow] [ranCol + 1], 
 			keyboard [ranRow + 1] [ranCol], keyboard [ranRow + 1] [ranCol + 1]
