@@ -23,6 +23,9 @@ public class movementHand : MonoBehaviour {
 	float[] randX;
 	float[] randZ;
 
+	float decreaseTime;
+	float totalFlowTime;
+
 	ArrayList lastTenChars = new ArrayList();
 	// Use this for initialization
 	void Start () {
@@ -42,7 +45,11 @@ public class movementHand : MonoBehaviour {
 				start = true;
 			}
 		} else {
-			orgasmMeter.fillAmount -= rate / waitTime * Time.deltaTime;
+
+			decreaseTime = rate / waitTime * Time.deltaTime;
+			Debug.Log (totalFlowTime -= decreaseTime);
+
+			orgasmMeter.fillAmount -= decreaseTime;
 			if (orgasmMeter.fillAmount == 0f) {
 				titles.enabled = true;
 				if (Input.GetKeyDown (KeyCode.Space)) {
@@ -52,6 +59,7 @@ public class movementHand : MonoBehaviour {
 				}
 
 			} else if (orgasmMeter.fillAmount >= .97f) {
+				
 				titles.enabled = true;
 				titles.text = "time for cuddles, unless you're ready for round 2? ;-p";
 				orgasmMeter.fillAmount = 1.0f;
@@ -59,6 +67,8 @@ public class movementHand : MonoBehaviour {
 					orgasmMeter.fillAmount = 0.30f;
 					generateRandom ();
 					titles.enabled = false;
+				} else {
+					
 				}
 			}
 
