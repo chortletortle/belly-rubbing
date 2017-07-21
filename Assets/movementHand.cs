@@ -59,7 +59,6 @@ public class movementHand : MonoBehaviour {
 				}
 
 			} else if (orgasmMeter.fillAmount >= .97f) {
-				
 				titles.enabled = true;
 				titles.text = "time for cuddles, unless you're ready for round 2? ;-p";
 				orgasmMeter.fillAmount = 1.0f;
@@ -67,8 +66,6 @@ public class movementHand : MonoBehaviour {
 					orgasmMeter.fillAmount = 0.30f;
 					generateRandom ();
 					titles.enabled = false;
-				} else {
-					
 				}
 			}
 
