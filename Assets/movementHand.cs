@@ -7,9 +7,12 @@ public class movementHand : MonoBehaviour {
 	public GameObject spot;
 	public Image orgasmMeter;
 	public Text titles;
+	public GameObject haterObj;
+	public Text hatersNum;
 
 	float preserveY;
 	bool flip = false;
+	bool flipoff = false;
 	bool space = false;
 	public float waitTime = 120.0f;
 	public float rate = .25f;
@@ -24,13 +27,17 @@ public class movementHand : MonoBehaviour {
 	float[] randZ;
 
 	float decreaseTime;
-	float totalFlowTime;
+	float randomFlowTime;
+	float haterEntrance;
+	bool hater = false;
+	float haterMult = 1.0f;
 
 	ArrayList lastTenChars = new ArrayList();
 	// Use this for initialization
 	void Start () {
 		generateRandom();
-
+		haterEntrance = Random.Range(.05f, .1f);
+		Debug.Log (haterEntrance);
 	}
 
 	// Update is called once per frame
@@ -45,11 +52,6 @@ public class movementHand : MonoBehaviour {
 				start = true;
 			}
 		} else {
-
-			decreaseTime = rate / waitTime * Time.deltaTime;
-			Debug.Log (totalFlowTime -= decreaseTime);
-
-			orgasmMeter.fillAmount -= decreaseTime;
 			if (orgasmMeter.fillAmount == 0f) {
 				titles.enabled = true;
 				if (Input.GetKeyDown (KeyCode.Space)) {
@@ -67,16 +69,44 @@ public class movementHand : MonoBehaviour {
 					generateRandom ();
 					titles.enabled = false;
 				}
+			} else {
+				decreaseTime = rate / waitTime * Time.deltaTime;
+				randomFlowTime -= decreaseTime;
+				orgasmMeter.fillAmount -= decreaseTime * haterMult;
+				Debug.Log (randomFlowTime);
+				Debug.Log (hater);
+				if (Mathf.Abs(randomFlowTime) >= haterEntrance) {
+					Vector3 orig = haterObj.transform.position;
+					hater = true;
+					haterObj.transform.position = new Vector3 (.9f, orig.y, orig.z);
+					Vector3 origNum = hatersNum.transform.position;
+					hatersNum.transform.position = new Vector3 (1.2f, origNum.y, origNum.z);
+					haterMult = 2.0f;
+					if (flipoff) {
+						orig = haterObj.transform.position;
+						haterObj.transform.position = new Vector3 (17.3f, orig.y, orig.z);
+						origNum = hatersNum.transform.position;
+						hatersNum.transform.position = new Vector3 (17.3f, origNum.y, origNum.z);
+						Debug.Log ("flipflapping yu off homes");
+						randomFlowTime = 0f;
+						haterEntrance = Random.Range(.1f, .2f);
+						hater = false;
+						haterMult = 1.0f;
+					}
+				} 
 			}
 
 
 			int correct = 0;
 			for (int i = 0; i < lastTenChars.Count; i++) {
-				if (randSel [0].Equals(lastTenChars [i]) ||
-					randSel [1].Equals(lastTenChars [i]) ||
-					randSel [2].Equals(lastTenChars [i]) ||
-					randSel [3].Equals(lastTenChars [i]))
-					correct++;
+				if (randSel [0].Equals (lastTenChars [i]) ||
+				    randSel [1].Equals (lastTenChars [i]) ||
+				    randSel [2].Equals (lastTenChars [i]) ||
+				    randSel [3].Equals (lastTenChars [i])) {
+						correct++;
+					
+				}
+					
 			}
 
 			if (correct == 10) {
@@ -88,7 +118,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Q)) {
 				Vector3 x = new Vector3 (-5f, transform.position.y, 0f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('q');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -99,7 +129,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.W)) {
 				Vector3 x = new Vector3 (-3.5f, transform.position.y, 0f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('w');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -109,7 +139,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.E)) {
 				Vector3 x = new Vector3 (-2f, transform.position.y, 0f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('e');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -119,7 +149,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.R)) {
 				Vector3 x = new Vector3 (-0.5f, transform.position.y, 0f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('r');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -129,7 +159,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.T)) {
 				Vector3 x = new Vector3 (1f, transform.position.y, 0f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('t');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -139,7 +169,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Y)) {
 				Vector3 x = new Vector3 (2.5f, transform.position.y, 0f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('y');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -149,7 +179,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.U)) {
 				Vector3 x = new Vector3 (4f, transform.position.y, 0f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('u');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -159,7 +189,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.I)) {
 				Vector3 x = new Vector3 (5.5f, transform.position.y, 0f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('i');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -169,7 +199,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.O)) {
 				Vector3 x = new Vector3 (7f, transform.position.y, 0f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('o');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -179,7 +209,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.P)) {
 				Vector3 x = new Vector3 (8.5f, transform.position.y, 0f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('p');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -192,7 +222,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.A)) {
 				Vector3 x = new Vector3 (-5f, transform.position.y, -1.5f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('a');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -202,7 +232,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.S)) {
 				Vector3 x = new Vector3 (-3.5f, transform.position.y, -1.5f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('s');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -212,7 +242,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.D)) {
 				Vector3 x = new Vector3 (-2f, transform.position.y, -1.5f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('d');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -222,7 +252,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.F)) {
 				Vector3 x = new Vector3 (-0.5f, transform.position.y, -1.5f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('f');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -232,7 +262,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.G)) {
 				Vector3 x = new Vector3 (1f, transform.position.y, -1.5f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('g');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -242,7 +272,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.H)) {
 				Vector3 x = new Vector3 (2.5f, transform.position.y, -1.5f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('h');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -252,7 +282,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.J)) {
 				Vector3 x = new Vector3 (4.0f, transform.position.y, -1.5f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('j');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -262,7 +292,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.K)) {
 				Vector3 x = new Vector3 (5.5f, transform.position.y, -1.5f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('k');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -272,7 +302,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.L)) {
 				Vector3 x = new Vector3 (7.0f, transform.position.y, -1.5f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add ('l');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -282,7 +312,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Semicolon)) {
 				Vector3 x = new Vector3 (8.5f, transform.position.y, -1.5f);
 				transform.position = x;
-				if (space){
+				if (space && !flipoff && !flip){
 					lastTenChars.Add (';');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -294,7 +324,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Z)) {
 				Vector3 x = new Vector3 (-5f, transform.position.y, -3f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('z');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -304,7 +334,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.X)) {
 				Vector3 x = new Vector3 (-3.5f, transform.position.y, -3f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('x');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -314,7 +344,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.C)) {
 				Vector3 x = new Vector3 (-2.0f, transform.position.y, -3f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('c');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -324,7 +354,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.V)) {
 				Vector3 x = new Vector3 (-0.5f, transform.position.y, -3f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('v');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -334,7 +364,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.B)) {
 				Vector3 x = new Vector3 (1f, transform.position.y, -3f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('b');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -344,7 +374,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.N)) {
 				Vector3 x = new Vector3 (2.5f, transform.position.y, -3f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('n');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -354,7 +384,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.M)) {
 				Vector3 x = new Vector3 (4f, transform.position.y, -3f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('m');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -364,7 +394,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Comma)) {
 				Vector3 x = new Vector3 (5.5f, transform.position.y, -3f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add (',');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -374,7 +404,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Period)) {
 				Vector3 x = new Vector3 (7.0f, transform.position.y, -3f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('.');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -384,7 +414,7 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Slash)) {
 				Vector3 x = new Vector3 (8.5f, transform.position.y, -3f);
 				transform.position = x;
-				if (space) {
+				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('/');
 					if (lastTenChars.Count > 10) {
 						lastTenChars.RemoveAt (0);
@@ -402,6 +432,7 @@ public class movementHand : MonoBehaviour {
 
 			if (Input.GetKeyDown (KeyCode.Space) && flip && !space) {
 				space = true;
+				flipoff = true;
 				preserveY = transform.position.y;
 				Vector3 x = new Vector3 (transform.position.x, 2f, transform.position.z);
 				transform.position = x;
@@ -414,19 +445,30 @@ public class movementHand : MonoBehaviour {
 				transform.position = x;
 			}
 
+			if (Input.GetKeyUp (KeyCode.Space) && flipoff) {
+				space = false;
+				Vector3 x = new Vector3 (transform.position.x, preserveY, transform.position.z);
+				transform.position = x;
+				flipoff = false;
+			}
+
 			if (Input.GetKeyDown (KeyCode.UpArrow) && !space) {
 				flip = true;
 				transform.Rotate (new Vector3 (-90f, 0f, 0f));
 			}
 
+
 			if (Input.GetKeyUp (KeyCode.UpArrow) && !space && flip) {
 				flip = false;
 				transform.Rotate (new Vector3 (90f, 0f, 0f));
+				flipoff = false;
+
 			}
 
 			if (Input.GetKeyUp (KeyCode.UpArrow) && space && flip) {
 				flip = false;
 				transform.Rotate (new Vector3 (90f, 0f, 0f));
+
 			}
 
 			Vector3 w = new Vector3 (randX[0]+.75f, -0.05f, randZ[0]-.75f);
