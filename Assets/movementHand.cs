@@ -10,6 +10,11 @@ public class movementHand : MonoBehaviour {
 	public GameObject haterObj;
 	public Text hatersNum;
 
+	public MeshRenderer spread;
+	public MeshRenderer rest;
+	public MeshRenderer flipmesh;
+	public MeshRenderer flipoffmesh;
+
 	float preserveY;
 	bool flip = false;
 	bool flipoff = false;
@@ -109,7 +114,7 @@ public class movementHand : MonoBehaviour {
 					
 			}
 
-			if (correct == 10) {
+			if (correct >= 8) {
 				generateRandom();
 				orgasmMeter.fillAmount += 0.07f;
 			}
@@ -118,6 +123,8 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Q)) {
 				Vector3 x = new Vector3 (-5f, transform.position.y, 0f);
 				transform.position = x;
+
+					
 				if (space && !flipoff && !flip) {
 					lastTenChars.Add ('q');
 					if (lastTenChars.Count > 10) {
@@ -428,6 +435,10 @@ public class movementHand : MonoBehaviour {
 				preserveY = transform.position.y;
 				Vector3 x = new Vector3 (transform.position.x, 0f, transform.position.z);
 				transform.position = x;
+				spread.enabled = true;
+				rest.enabled = false;
+				flipmesh.enabled = false;
+				flipoffmesh.enabled = false;
 			}
 
 			if (Input.GetKeyDown (KeyCode.Space) && flip && !space) {
@@ -436,6 +447,10 @@ public class movementHand : MonoBehaviour {
 				preserveY = transform.position.y;
 				Vector3 x = new Vector3 (transform.position.x, 2f, transform.position.z);
 				transform.position = x;
+				spread.enabled = false;
+				rest.enabled = false;
+				flipmesh.enabled = false;
+				flipoffmesh.enabled = true;
 			}
 
 
@@ -443,6 +458,10 @@ public class movementHand : MonoBehaviour {
 				space = false;
 				Vector3 x = new Vector3 (transform.position.x, preserveY, transform.position.z);
 				transform.position = x;
+				spread.enabled = false;
+				rest.enabled = true;
+				flipmesh.enabled = false;
+				flipoffmesh.enabled = false;
 			}
 
 			if (Input.GetKeyUp (KeyCode.Space) && flipoff) {
@@ -450,24 +469,37 @@ public class movementHand : MonoBehaviour {
 				Vector3 x = new Vector3 (transform.position.x, preserveY, transform.position.z);
 				transform.position = x;
 				flipoff = false;
+				spread.enabled = false;
+				rest.enabled = false;
+				flipmesh.enabled = true;
+				flipoffmesh.enabled = false;
+
 			}
 
 			if (Input.GetKeyDown (KeyCode.UpArrow) && !space) {
 				flip = true;
-				transform.Rotate (new Vector3 (-90f, 0f, 0f));
+				//transform.Rotate (new Vector3 (90f, 0f, 0f));
+				spread.enabled = false;
+				rest.enabled = false;
+				flipmesh.enabled = true;
+				flipoffmesh.enabled = false;
 			}
 
 
 			if (Input.GetKeyUp (KeyCode.UpArrow) && !space && flip) {
 				flip = false;
-				transform.Rotate (new Vector3 (90f, 0f, 0f));
+				//transform.Rotate (new Vector3 (-90f, 0f, 0f));
 				flipoff = false;
+				spread.enabled = false;
+				rest.enabled = true;
+				flipmesh.enabled = false;
+				flipoffmesh.enabled = false;
 
 			}
 
 			if (Input.GetKeyUp (KeyCode.UpArrow) && space && flip) {
 				flip = false;
-				transform.Rotate (new Vector3 (90f, 0f, 0f));
+				//transform.Rotate (new Vector3 (-90f, 0f, 0f));
 
 			}
 
