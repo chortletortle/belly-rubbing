@@ -15,6 +15,28 @@ public class movementHand : MonoBehaviour {
 	public MeshRenderer flipmesh;
 	public MeshRenderer flipoffmesh;
 
+	public AudioSource intake;
+	public AudioSource intake2;
+	public AudioSource intake3;
+	public AudioSource intake4;
+	public AudioSource intake5;
+
+	public AudioSource outtake;
+	public AudioSource outtake2;
+
+	public AudioSource moan;
+	public AudioSource moan2;
+	public AudioSource moan3;
+	public AudioSource moan4;
+	public AudioSource moan5;
+
+	public AudioSource failure;
+	public AudioSource orgasm;
+	public AudioSource hate;
+	public AudioSource flippin;
+
+	public Light spotLight;
+
 	float preserveY;
 	bool flip = false;
 	bool flipoff = false;
@@ -36,43 +58,75 @@ public class movementHand : MonoBehaviour {
 	float haterEntrance;
 	bool hater = false;
 	float haterMult = 1.0f;
+	bool g;
+	bool endPlayed = false;
+	bool haterPlayed = false;
 
 	ArrayList lastTenChars = new ArrayList();
 	// Use this for initialization
 	void Start () {
 		generateRandom();
-		haterEntrance = Random.Range(.05f, .1f);
+		haterEntrance = Random.Range(.03f, .1f);
 		Debug.Log (haterEntrance);
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (!start) {
+			if (Input.GetKeyDown (KeyCode.G)) {
+				g = true;
+			} 
+
+			if (Input.GetKeyUp (KeyCode.G)) {
+				g = false;
+			}
+
 			orgasmMeter.enabled = false;
 			titles.enabled = true;
-			titles.text = "hey there big girl, wanna play? ;->\nspace to start";
+			if (g)
+				titles.text = "Q-P, A-;, Z-/ to move \n space to rub belly or flip off bad vibes \n up arrow to prepare flipping off";
+			else
+				titles.text = "hey there big girl, wanna play? ;->\nspace to start \n G for instructions";
 			if (Input.GetKeyUp (KeyCode.Space)) {
 				orgasmMeter.enabled = true;
 				titles.enabled = false;
 				start = true;
 			}
+
+
 		} else {
-			if (orgasmMeter.fillAmount == 0f) {
+			if (orgasmMeter.fillAmount <= .01f) {
 				titles.enabled = true;
+				titles.text = "The mood was killed\nTry again?";
+				if (!endPlayed) {
+					failure.Play ();
+					endPlayed = true;
+				}
+				orgasmMeter.enabled = false;
 				if (Input.GetKeyDown (KeyCode.Space)) {
+					orgasmMeter.enabled = true;
 					orgasmMeter.fillAmount = 0.30f;
 					generateRandom ();
 					titles.enabled = false;
+					endPlayed = false;
 				}
 
 			} else if (orgasmMeter.fillAmount >= .97f) {
 				titles.enabled = true;
-				titles.text = "time for cuddles, unless you're ready for round 2? ;-p";
-				orgasmMeter.fillAmount = 1.0f;
+				if (!endPlayed) {
+					orgasm.Play ();
+					endPlayed = true;
+				}
+				titles.text = "now we can get to the best part, C U D D L E S ! ;-p \n space to play again";
+				orgasmMeter.enabled = false;
+				spotLight.enabled = false;
 				if (Input.GetKeyDown (KeyCode.Space)) {
+					endPlayed = false;
+					orgasmMeter.enabled = true;
 					orgasmMeter.fillAmount = 0.30f;
 					generateRandom ();
 					titles.enabled = false;
+					spotLight.enabled = true;
 				}
 			} else {
 				decreaseTime = rate / waitTime * Time.deltaTime;
@@ -86,7 +140,12 @@ public class movementHand : MonoBehaviour {
 					haterObj.transform.position = new Vector3 (.9f, orig.y, orig.z);
 					Vector3 origNum = hatersNum.transform.position;
 					hatersNum.transform.position = new Vector3 (1.2f, origNum.y, origNum.z);
-					haterMult = 2.0f;
+					haterMult = 4.0f;
+					if (!haterPlayed) {
+						hate.Play ();
+						haterPlayed = true;
+					} else {
+					}
 					if (flipoff) {
 						orig = haterObj.transform.position;
 						haterObj.transform.position = new Vector3 (17.3f, orig.y, orig.z);
@@ -97,6 +156,8 @@ public class movementHand : MonoBehaviour {
 						haterEntrance = Random.Range(.1f, .2f);
 						hater = false;
 						haterMult = 1.0f;
+						haterPlayed = false;
+						flippin.Play ();
 					}
 				} 
 			}
@@ -116,7 +177,20 @@ public class movementHand : MonoBehaviour {
 
 			if (correct >= 8) {
 				generateRandom();
-				orgasmMeter.fillAmount += 0.07f;
+				orgasmMeter.fillAmount += 0.06f;
+				lastTenChars = new ArrayList();
+				float moanVal = Random.Range (0f, 1f);
+				if (moanVal <= .2f) {
+					moan.Play ();
+				} else if (moanVal <= .4f) {
+					moan2.Play ();
+				} else if (moanVal <= .6f) {
+					moan3.Play ();
+				} else if (moanVal <= .8f) {
+					moan4.Play ();
+				} else {
+					moan5.Play ();
+				}
 			}
 
 
@@ -439,6 +513,18 @@ public class movementHand : MonoBehaviour {
 				rest.enabled = false;
 				flipmesh.enabled = false;
 				flipoffmesh.enabled = false;
+				float intakeVal = Random.Range (0f, 1f);
+				if (intakeVal <= .2f) {
+					intake.Play ();
+				} else if (intakeVal <= .4f) {
+					intake2.Play ();
+				} else if (intakeVal <= .6f) {
+					intake3.Play ();
+				} else if (intakeVal <= .8f) {
+					intake4.Play ();
+				} else {
+					intake5.Play ();
+				}
 			}
 
 			if (Input.GetKeyDown (KeyCode.Space) && flip && !space) {
@@ -451,6 +537,7 @@ public class movementHand : MonoBehaviour {
 				rest.enabled = false;
 				flipmesh.enabled = false;
 				flipoffmesh.enabled = true;
+
 			}
 
 
@@ -462,6 +549,13 @@ public class movementHand : MonoBehaviour {
 				rest.enabled = true;
 				flipmesh.enabled = false;
 				flipoffmesh.enabled = false;
+				float outtakeVal = Random.Range (0f, 1f);
+				if (outtakeVal <= .5f) {
+					outtake.Play ();
+				} else {
+					outtake2.Play ();
+				}
+
 			}
 
 			if (Input.GetKeyUp (KeyCode.Space) && flipoff) {
@@ -500,6 +594,11 @@ public class movementHand : MonoBehaviour {
 			if (Input.GetKeyUp (KeyCode.UpArrow) && space && flip) {
 				flip = false;
 				//transform.Rotate (new Vector3 (-90f, 0f, 0f));
+				flipoff = false;
+				spread.enabled = false;
+				rest.enabled = true;
+				flipmesh.enabled = false;
+				flipoffmesh.enabled = false;
 
 			}
 
