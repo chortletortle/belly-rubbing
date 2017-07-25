@@ -66,7 +66,7 @@ public class movementHand : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		generateRandom();
-		haterEntrance = Random.Range(.03f, .1f);
+		haterEntrance = Random.Range(.05f, .1f);
 		Debug.Log (haterEntrance);
 	}
 
@@ -140,7 +140,7 @@ public class movementHand : MonoBehaviour {
 					haterObj.transform.position = new Vector3 (.9f, orig.y, orig.z);
 					Vector3 origNum = hatersNum.transform.position;
 					hatersNum.transform.position = new Vector3 (1.2f, origNum.y, origNum.z);
-					haterMult = 4.0f;
+					haterMult = 3.0f;
 					if (!haterPlayed) {
 						hate.Play ();
 						haterPlayed = true;
@@ -153,7 +153,7 @@ public class movementHand : MonoBehaviour {
 						hatersNum.transform.position = new Vector3 (17.3f, origNum.y, origNum.z);
 						Debug.Log ("flipflapping yu off homes");
 						randomFlowTime = 0f;
-						haterEntrance = Random.Range(.1f, .2f);
+						haterEntrance = Random.Range(.1f, .18f);
 						hater = false;
 						haterMult = 1.0f;
 						haterPlayed = false;
@@ -177,7 +177,7 @@ public class movementHand : MonoBehaviour {
 
 			if (correct >= 8) {
 				generateRandom();
-				orgasmMeter.fillAmount += 0.06f;
+				orgasmMeter.fillAmount += 0.073f;
 				lastTenChars = new ArrayList();
 				float moanVal = Random.Range (0f, 1f);
 				if (moanVal <= .2f) {
